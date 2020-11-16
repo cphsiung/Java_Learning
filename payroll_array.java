@@ -12,12 +12,24 @@ public class payroll_array
       
       {
          // Declaration
+         double stateTaxRate = 0.06, fedTaxRate = 0.12, unionFeeRate = 0.02, overtimeRate = 0.5; // contants for tax & fee rates
          final int size = 2; // size for arrays
-         
+         String [] firstName = new String [size];
+         String [] lastName = new String [size];
+         char [] middleInit = new char [size];
+         double [] hours = new double [size];
+         double [] rates = new double [size];
+         double [] stateTax = new double [size];
+         double [] fedTax = new double [size];
+         double [] unionFee = new double [size];
+         double [] netPay = new double [size];
+         double [] grossPay = new double [size]; 
+
          Scanner Input = new Scanner(System.in);      
          
          // Input      
          for (int i = 0; i < size; i++) {
+         
          }
               
          // Process

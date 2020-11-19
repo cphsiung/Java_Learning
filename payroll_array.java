@@ -12,9 +12,9 @@ public class payroll_array
       
       {
          // DECLARATION
-         double stateTaxRate = 0.06, fedTaxRate = 0.12, unionFeeRate = 0.02, overtimeRate = 0.5; // contants for tax & fee rates
-         double total = 0, avg = 0; // store gross pay and average pay for all employees
-         final int size = 2; // size for arrays
+         double stateTaxRate = 0.06, fedTaxRate = 0.12, unionFeeRate = 0.02, overtimeRate = 0.5; // constants for tax & fee rates
+         double total = 0, avg = 0; // store calculated gross pay and average pay for all employees
+         final int size = 10; // size for arrays
          String [] firstName = new String [size];
          String [] lastName = new String [size];
          char [] middleInit = new char [size];
@@ -52,7 +52,6 @@ public class payroll_array
          }
               
          // PROCESS
-         
          for (int k = 0; k < size; k++) {
             // Calculate additional overtime pay
             if (hours[k] > 40) {
@@ -89,18 +88,18 @@ public class payroll_array
             System.out.printf("%-13s", firstName[j]);
             System.out.printf("%-4C", middleInit[j]); // capital C to format to capital letter
             System.out.printf("%-13s", lastName[j]);
-            System.out.printf("$%-10.2f", rates[j]);
+            System.out.printf("$%,-10.2f", rates[j]);
             System.out.printf("%-8.0f", hours[j]);
-            System.out.printf("$%-10.2f", grossPay[j]);
-            System.out.printf("$%-10.2f", stateTax[j]);
-            System.out.printf("$%-10.2f", fedTax[j]);
-            System.out.printf("$%-12.2f", unionFee[j]);
-            System.out.printf("$%-10.2f\n", netPay[j]);
+            System.out.printf("$%,-10.2f", grossPay[j]);
+            System.out.printf("$%,-10.2f", stateTax[j]);
+            System.out.printf("$%,-10.2f", fedTax[j]);
+            System.out.printf("$%,-12.2f", unionFee[j]);
+            System.out.printf("$%,-10.2f\n", netPay[j]);
          }
          
          System.out.print("\nGross Pay for all employees\t: ");
-         System.out.printf("$%.2f", total);
+         System.out.printf("$%,.2f", total);
          System.out.print("\nAverage Pay for all employees\t: ");
-         System.out.printf("$%.2f", avg);
+         System.out.printf("$%,.2f", avg);
       }
 }

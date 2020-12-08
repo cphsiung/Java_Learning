@@ -6,30 +6,70 @@
    Write a Java program to create a payroll report based on the assumptions and requirements. */
 
 import java.util.Scanner;
-import java.io;
+
 public class payroll_final
 {
    public static void main(String[] args)
-      {
-         // DECLARATION
-         double stateTaxRate = 0.06, fedTaxRate = 0.12, unionFeeRate = 0.01, overtimeRate = 0.5; // constants for tax & fee rates
-         double total = 0, avg = 0; // store calculated gross pay and average pay for all employees
-         final int size = 2; // size for arrays
-         String [] firstName = new String [size];
-         String [] lastName = new String [size];
-         char [] middleInit = new char [size];
-         double [] rates = new double [size];
-         double [] hours = new double [size];
-         double [] stateTax = new double [size];
-         double [] fedTax = new double [size];
-         double [] unionFee = new double [size];
-         double [] netPay = new double [size];
-         double [] grossPay = new double [size]; 
-         double [] overtime = new double [size];
+   {
+      // DECLARATION
+      double stateTaxRate = 0.06, fedTaxRate = 0.12, unionFeeRate = 0.01, overtimeRate = 0.5; // constants for tax & fee rates
+      double total = 0, avg = 0; // store calculated gross pay and average pay for all employees
+      final int size = 2; // size for arrays
+      String [] firstName = new String [size];
+      String [] lastName = new String [size];
+      char [] middleInit = new char [size];
+      double [] rates = new double [size];
+      double [] hours = new double [size];
+      double [] stateTax = new double [size];
+      double [] fedTax = new double [size];
+      double [] unionFee = new double [size];
+      double [] netPay = new double [size];
+      double [] grossPay = new double [size]; 
+      double [] overtime = new double [size];
+      
+      nameInput(firstName, middleInit, lastName, size);
+      dataInput(rates, hours, size);
+      
+      System.out.printf("%-13s", firstName[0]);
+      System.out.printf("%-4C", middleInit[0]); // capital C to format to capital letter
+      System.out.printf("%-13s", lastName[0]);
 
-         Scanner Input = new Scanner(System.in);      
          
-         // INPUT      
+   }
+
+   // INPUT
+   public static void nameInput(String first[], char middle[], String last[], final int size)
+   {
+      Scanner Input = new Scanner(System.in);
+      for (int i = 0; i < size; i++) {
+         System.out.println("Please enter first name for employee" + (i + 1) + " :"); // i + 1 to get employee count
+         first[i] = Input.next();
+         System.out.println("Please enter middle name initial for employee" + (i + 1) + " :");
+         middle[i] = Input.next().charAt(0);
+         System.out.println("Please enter last name for employee" + (i + 1) + " :");
+         last[i] = Input.next();
+      }
+   }
+   
+   public static void dataInput(double rates[], double hours[], final int size)
+   {
+      System.out.println("Please enter employee" + (i + 1) + " pay rates per hour:");
+      rates[i] = Input.nextDouble();
+      System.out.println("Please enter hours worked for employee" + (i + 1) + " :");
+      hours[i] = Input.nextDouble();
+   }
+   
+   public static double Validation(double var, Scanner K) { // validate input
+      while(var < 0 || var > 100) {
+         System.out.println("Number must be between 0 and 100. Please reenter:");
+         var = K.nextDouble();
+      }
+   return var;
+   }
+
+         
+/*          
+            
          for (int i = 0; i < size; i++) {
             System.out.println("Please enter first name for employee" + (i + 1) + " :"); // i + 1 to get employee count
             firstName[i] = Input.next();
@@ -102,4 +142,5 @@ public class payroll_final
          System.out.print("\nAverage Pay for all employees\t: ");
          System.out.printf("$%,.2f", avg);
       }
+*/
 }

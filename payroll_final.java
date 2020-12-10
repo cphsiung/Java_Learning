@@ -36,6 +36,8 @@ public class payroll_final
       Federal(fedTax, grossPay, size, fedTaxRate);
       Union(unionFee, grossPay, size, unionFeeRate);
       Net(netPay, grossPay, stateTax, fedTax, unionFee, size);
+      Summary(total, grossPay, size);
+      Average(avg, total, size);
       
       System.out.printf("%-13s", firstName[0]);
       System.out.printf("%-4C", middleInit[0]); // capital C to format to capital letter
@@ -136,6 +138,25 @@ public class payroll_final
       }
    }
 
+   // Calculate total gross pay for all employees
+   public static void Summary(double total, double grossPay[], final int size)
+   {
+      for (int ct = 0; ct < size; ct++) {
+         total += grossPay[ct];
+      }
+   }  
+
+   // Calculate average pay for all employees
+   public static double Average(double avg, double total, int size)
+   {
+      avg = total/size;
+   }
+
+
+   public static void Output()
+   {
+      
+   }
 /*          
             
          for (int i = 0; i < size; i++) {

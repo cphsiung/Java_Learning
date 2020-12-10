@@ -36,17 +36,9 @@ public class payroll_final
       Federal(fedTax, grossPay, size, fedTaxRate);
       Union(unionFee, grossPay, size, unionFeeRate);
       Net(netPay, grossPay, stateTax, fedTax, unionFee, size);
-      Summary(total, grossPay, size);
-      Average(avg, total, size);
-      
-      System.out.printf("%-13s", firstName[0]);
-      System.out.printf("%-4C", middleInit[0]); // capital C to format to capital letter
-      System.out.printf("%-13s", lastName[0]);
-      System.out.printf("$%,-10.2f", rates[0]);
-      System.out.printf("%-8.0f", hours[0]);
-      System.out.printf("%-8.0f", overtime[0]);
-      System.out.printf("%-8.0f", grossPay[0]);
-      System.out.printf("%-8.0f", stateTax[0]);
+      total = Summary(total, grossPay, size);
+      avg = Average(avg, total, size);
+      Output(firstName, middleInit, lastName, rates, hours, grossPay, stateTax, fedTax, unionFee, netPay, size, total, avg);
    }
 
    // INPUT
@@ -139,77 +131,26 @@ public class payroll_final
    }
 
    // Calculate total gross pay for all employees
-   public static void Summary(double total, double grossPay[], final int size)
+   public static double Summary(double total, double grossPay[], final int size)
    {
       for (int ct = 0; ct < size; ct++) {
          total += grossPay[ct];
       }
+      return total;
    }  
 
    // Calculate average pay for all employees
    public static double Average(double avg, double total, int size)
    {
       avg = total/size;
+      return avg;
    }
 
 
-   public static void Output()
+   public static void Output(String firstName[], char middleInit[], String lastName[], double rates[], double hours[], double grossPay[], double stateTax[], double fedTax[], double unionFee[], double netPay[], final int size, double total, double avg)
    {
-      
-   }
-/*          
-            
-         for (int i = 0; i < size; i++) {
-            System.out.println("Please enter first name for employee" + (i + 1) + " :"); // i + 1 to get employee count
-            firstName[i] = Input.next();
-            System.out.println("Please enter middle name initial for employee" + (i + 1) + " :");
-            middleInit[i] = Input.next().charAt(0);
-            System.out.println("Please enter last name for employee" + (i + 1) + " :");
-            lastName[i] = Input.next();
-            System.out.println("Please enter employee" + (i + 1) + " pay rates per hour:");
-            rates[i] = Input.nextDouble();
-            while (rates[i] < 15 || rates[i] > 50) {
-               System.out.println("Rates must be between 15 to 50.");
-               rates[i] = Input.nextDouble();
-            } // while loop for data validation
-            System.out.println("Please enter hours worked for employee" + (i + 1) + " :");
-            hours[i] = Input.nextDouble();
-            while (hours[i] < 0 || hours[i] > 60) {
-               System.out.println("Hours must be between 0 to 60.");
-               hours[i] = Input.nextDouble();
-            }
-         }
-              
-         // PROCESS
-         for (int k = 0; k < size; k++) {
-            // Calculate additional overtime pay
-            if (hours[k] > 40) {
-               overtime[k] = (hours[k] - 40) * rates[k] * overtimeRate;
-            } else {
-               overtime[k] = 0;
-            }
-            // Calculate gross pay
-            grossPay[k] = hours[k] * rates[k] + overtime[k];
-            // Calculate State Tax amount
-            stateTax[k] = grossPay[k] * stateTaxRate;
-            // Calculate Federal Tax amount
-            fedTax[k] = grossPay[k] * fedTaxRate;
-            // Calculate Union Fees
-            unionFee[k] = grossPay[k] * unionFeeRate;
-            // Calculate net pay
-            netPay[k] = grossPay[k] - (stateTax[k] + fedTax[k] + unionFee[k]);
-         }
-          
-         // Calculate gross pay for all employees
-         for (int ct = 0; ct < size; ct++) {
-            total += grossPay[ct];
-         }
-         // Calculate average pay for all employees
-         avg = total/size;
-         
-         // OUTPUT
-         System.out.println("                         Data Housing Corp. Payroll");
-         System.out.println("                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+         System.out.println("                                             Data Housing Corp. Payroll");
+         System.out.println("==================================================================================================");
          System.out.printf("%-12s %-3s %-11s %-10s %-8s %-10s %-10s %-10s %-12s %-10s\n", 
                            "First Name", "MI", "Last Name", "Rate/Hour", "Hours", "Gross", "State Tax", "Fed Tax", "Union Fees", "Net");
 
@@ -230,6 +171,5 @@ public class payroll_final
          System.out.printf("$%,.2f", total);
          System.out.print("\nAverage Pay for all employees\t: ");
          System.out.printf("$%,.2f", avg);
-      }
-*/
+   }
 }

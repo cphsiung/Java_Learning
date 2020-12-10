@@ -30,13 +30,21 @@ public class payroll_final
       Scanner Input = new Scanner(System.in);
       
       dataInput(firstName, middleInit, lastName, rates, hours, size, Input);
+      Overtime(rates, hours, overtime, size, overtimeRate);
+      GrossPay(grossPay, hours, rates, overtime, size);
+      State(stateTax, grossPay, size, stateTaxRate);
+      Federal(fedTax, grossPay, size, fedTaxRate);
+      Union(unionFee, grossPay, size, unionFeeRate);
+      Net(netPay, grossPay, stateTax, fedTax, unionFee, size);
       
       System.out.printf("%-13s", firstName[0]);
       System.out.printf("%-4C", middleInit[0]); // capital C to format to capital letter
       System.out.printf("%-13s", lastName[0]);
       System.out.printf("$%,-10.2f", rates[0]);
       System.out.printf("%-8.0f", hours[0]);
-         
+      System.out.printf("%-8.0f", overtime[0]);
+      System.out.printf("%-8.0f", grossPay[0]);
+      System.out.printf("%-8.0f", stateTax[0]);
    }
 
    // INPUT
@@ -58,21 +66,76 @@ public class payroll_final
       }
    }
      
-   public static double rateValidation(double var, Scanner KB) { // validate rates between 15 - 50
+   public static double rateValidation(double var, Scanner KB) // validate rates between 15 - 50
+   { 
       while(var < 15 || var > 50) {
          System.out.println("Rates must be between 15 and 50. Please re-enter:");
          var = KB.nextDouble();
       }
-   return var;
+      return var;
    }
 
-   public static double hourValidation(double var, Scanner KB) { // validate hours between 0 - 60
+   public static double hourValidation(double var, Scanner KB) // validate hours between 0 - 60
+   { 
       while(var < 0 || var > 60) {
          System.out.println("Hours must be between 0 and 60. Please re-enter:");
          var = KB.nextDouble();
       }
-   return var;
+      return var;
+   }
+   
+   // Calculate additional overtime pay
+   public static void Overtime(double rates[], double hours[], double overtime[], final int size, double overtimeRate) 
+   {
+      for (int k = 0; k < size; k++) {
+         if (hours[k] > 40) {
+            overtime[k] = (hours[k] - 40) * rates[k] * overtimeRate;
+         } else {
+            overtime[k] = 0;
+         }
+      }
+   }
+   
+   // Calculate gross pay
+   public static void GrossPay(double grossPay[], double hours[], double rates[], double overtime[], final int size)
+   {
+      for (int k = 0; k < size; k++) {
+         grossPay[k] = hours[k] * rates[k] + overtime[k];
+      }
    }         
+
+   // Calculate state tax
+   public static void State(double stateTax[], double grossPay[], final int size, double stateTaxRate)
+   {
+      for (int k = 0; k < size; k++) {
+         stateTax[k] = grossPay[k] * stateTaxRate;
+      }
+   }
+
+   // Calculate Federal tax
+   public static void Federal(double fedTax[], double grossPay[], final int size, double fedTaxRate)
+   {
+      for (int k = 0; k < size; k++) {
+         fedTax[k] = grossPay[k] * fedTaxRate;
+      }
+   }
+
+   // Calculate union fee amount
+   public static void Union(double unionFee[], double grossPay[], final int size, double unionFeeRate)
+   {
+      for (int k = 0; k < size; k++) {
+         unionFee[k] = grossPay[k] * unionFeeRate;
+      }
+   }
+
+   // Calculate net pay amount
+   public static void Net(double netPay[], double grossPay[], double stateTax[], double fedTax[], double unionFee[], final int size)
+   {
+      for (int k = 0; k < size; k++) {
+         netPay[k] = grossPay[k] - (stateTax[k] + fedTax[k] + unionFee[k]);
+      }
+   }
+
 /*          
             
          for (int i = 0; i < size; i++) {

@@ -27,20 +27,21 @@ public class payroll_final
       double [] grossPay = new double [size]; 
       double [] overtime = new double [size];
       
-      nameInput(firstName, middleInit, lastName, size);
-      dataInput(rates, hours, size);
+      Scanner Input = new Scanner(System.in);
+      
+      dataInput(firstName, middleInit, lastName, rates, hours, size, Input);
       
       System.out.printf("%-13s", firstName[0]);
       System.out.printf("%-4C", middleInit[0]); // capital C to format to capital letter
       System.out.printf("%-13s", lastName[0]);
-
+      System.out.printf("$%,-10.2f", rates[0]);
+      System.out.printf("%-8.0f", hours[0]);
          
    }
 
    // INPUT
-   public static void nameInput(String first[], char middle[], String last[], final int size)
+   public static void dataInput(String first[], char middle[], String last[], double rates[], double hours[], final int size, Scanner Input)
    {
-      Scanner Input = new Scanner(System.in);
       for (int i = 0; i < size; i++) {
          System.out.println("Please enter first name for employee" + (i + 1) + " :"); // i + 1 to get employee count
          first[i] = Input.next();
@@ -48,26 +49,30 @@ public class payroll_final
          middle[i] = Input.next().charAt(0);
          System.out.println("Please enter last name for employee" + (i + 1) + " :");
          last[i] = Input.next();
+         System.out.println("Please enter employee" + (i + 1) + " pay rates per hour:");
+         rates[i] = Input.nextDouble();
+         rateValidation(rates[i], Input);
+         System.out.println("Please enter hours worked for employee" + (i + 1) + " :");
+         hours[i] = Input.nextDouble();
+         hourValidation(hours[i], Input);
       }
    }
-   
-   public static void dataInput(double rates[], double hours[], final int size)
-   {
-      System.out.println("Please enter employee" + (i + 1) + " pay rates per hour:");
-      rates[i] = Input.nextDouble();
-      System.out.println("Please enter hours worked for employee" + (i + 1) + " :");
-      hours[i] = Input.nextDouble();
-   }
-   
-   public static double Validation(double var, Scanner K) { // validate input
-      while(var < 0 || var > 100) {
-         System.out.println("Number must be between 0 and 100. Please reenter:");
-         var = K.nextDouble();
+     
+   public static double rateValidation(double var, Scanner KB) { // validate rates between 15 - 50
+      while(var < 15 || var > 50) {
+         System.out.println("Rates must be between 15 and 50. Please re-enter:");
+         var = KB.nextDouble();
       }
    return var;
    }
 
-         
+   public static double hourValidation(double var, Scanner KB) { // validate hours between 0 - 60
+      while(var < 0 || var > 60) {
+         System.out.println("Hours must be between 0 and 60. Please re-enter:");
+         var = KB.nextDouble();
+      }
+   return var;
+   }         
 /*          
             
          for (int i = 0; i < size; i++) {

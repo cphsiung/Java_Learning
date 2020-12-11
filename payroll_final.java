@@ -6,39 +6,47 @@
    Write a Java program to create a payroll report based on the assumptions and requirements. */
 
 import java.util.Scanner;
+import java.io.*;
 
 public class payroll_final
 {
-   public static void main(String[] args)
+   public static void main(String[] args) throws IOException
    {
-      // DECLARATION
-      double stateTaxRate = 0.06, fedTaxRate = 0.12, unionFeeRate = 0.01, overtimeRate = 0.5; // constants for tax & fee rates
-      double total = 0, avg = 0; // store calculated gross pay and average pay for all employees
-      final int size = 2; // size for arrays
-      String [] firstName = new String [size];
-      String [] lastName = new String [size];
-      char [] middleInit = new char [size];
-      double [] rates = new double [size];
-      double [] hours = new double [size];
-      double [] stateTax = new double [size];
-      double [] fedTax = new double [size];
-      double [] unionFee = new double [size];
-      double [] netPay = new double [size];
-      double [] grossPay = new double [size]; 
-      double [] overtime = new double [size];
       
-      Scanner Input = new Scanner(System.in);
-      
-      dataInput(firstName, middleInit, lastName, rates, hours, size, Input);
-      Overtime(rates, hours, overtime, size, overtimeRate);
-      GrossPay(grossPay, hours, rates, overtime, size);
-      State(stateTax, grossPay, size, stateTaxRate);
-      Federal(fedTax, grossPay, size, fedTaxRate);
-      Union(unionFee, grossPay, size, unionFeeRate);
-      Net(netPay, grossPay, stateTax, fedTax, unionFee, size);
-      total = Summary(total, grossPay, size);
-      avg = Average(avg, total, size);
-      Output(firstName, middleInit, lastName, rates, hours, grossPay, stateTax, fedTax, unionFee, netPay, size, total, avg);
+         // DECLARATION
+         double stateTaxRate = 0.06, fedTaxRate = 0.12, unionFeeRate = 0.01, overtimeRate = 0.5; // constants for tax & fee rates
+         double total = 0, avg = 0; // store calculated gross pay and average pay for all employees
+         final int size = 2; // size for arrays
+         char repeat = 'n';
+      do {
+         total = 0;
+         avg = 0;
+         String [] firstName = new String [size];
+         String [] lastName = new String [size];
+         char [] middleInit = new char [size];
+         double [] rates = new double [size];
+         double [] hours = new double [size];
+         double [] stateTax = new double [size];
+         double [] fedTax = new double [size];
+         double [] unionFee = new double [size];
+         double [] netPay = new double [size];
+         double [] grossPay = new double [size]; 
+         double [] overtime = new double [size];
+         
+         Scanner Input = new Scanner(System.in);
+         
+         dataInput(firstName, middleInit, lastName, rates, hours, size, Input);
+         Overtime(rates, hours, overtime, size, overtimeRate);
+         GrossPay(grossPay, hours, rates, overtime, size);
+         State(stateTax, grossPay, size, stateTaxRate);
+         Federal(fedTax, grossPay, size, fedTaxRate);
+         Union(unionFee, grossPay, size, unionFeeRate);
+         Net(netPay, grossPay, stateTax, fedTax, unionFee, size);
+         total = Summary(total, grossPay, size);
+         avg = Average(avg, total, size);
+         Output(firstName, middleInit, lastName, rates, hours, grossPay, stateTax, fedTax, unionFee, netPay, size, total, avg);
+         repeat = Ending(repeat, Input);
+      } while (repeat == 'y');
    }
 
    // INPUT
@@ -147,29 +155,42 @@ public class payroll_final
    }
 
 
-   public static void Output(String firstName[], char middleInit[], String lastName[], double rates[], double hours[], double grossPay[], double stateTax[], double fedTax[], double unionFee[], double netPay[], final int size, double total, double avg)
+   public static void Output(String firstName[], char middleInit[], String lastName[], double rates[], double hours[], double grossPay[], double stateTax[], double fedTax[], double unionFee[], double netPay[], final int size, double total, double avg) throws IOException
    {
-         System.out.println("                                             Data Housing Corp. Payroll");
-         System.out.println("==================================================================================================");
-         System.out.printf("%-12s %-3s %-11s %-10s %-8s %-10s %-10s %-10s %-12s %-10s\n", 
+         PrintWriter Streem = new PrintWriter("Payroll.txt");
+         Streem.println("                                        Data Housing Corp. Payroll");
+         Streem.println("=======================================================================================================");
+         Streem.printf("%-12s %-3s %-11s %-10s %-8s %-10s %-10s %-10s %-12s %-10s\n", 
                            "First Name", "MI", "Last Name", "Rate/Hour", "Hours", "Gross", "State Tax", "Fed Tax", "Union Fees", "Net");
 
          for (int j = 0; j < size; j++) {
-            System.out.printf("%-13s", firstName[j]);
-            System.out.printf("%-4C", middleInit[j]); // capital C to format to capital letter
-            System.out.printf("%-13s", lastName[j]);
-            System.out.printf("$%,-10.2f", rates[j]);
-            System.out.printf("%-8.0f", hours[j]);
-            System.out.printf("$%,-10.2f", grossPay[j]);
-            System.out.printf("$%,-10.2f", stateTax[j]);
-            System.out.printf("$%,-10.2f", fedTax[j]);
-            System.out.printf("$%,-12.2f", unionFee[j]);
-            System.out.printf("$%,-10.2f\n", netPay[j]);
+            Streem.printf("%-13s", firstName[j]);
+            Streem.printf("%-4C", middleInit[j]); // capital C to format to capital letter
+            Streem.printf("%-13s", lastName[j]);
+            Streem.printf("$%,-10.2f", rates[j]);
+            Streem.printf("%-8.0f", hours[j]);
+            Streem.printf("$%,-10.2f", grossPay[j]);
+            Streem.printf("$%,-10.2f", stateTax[j]);
+            Streem.printf("$%,-10.2f", fedTax[j]);
+            Streem.printf("$%,-12.2f", unionFee[j]);
+            Streem.printf("$%,-10.2f\n", netPay[j]);
          }
          
-         System.out.print("\nGross Pay for all employees\t: ");
-         System.out.printf("$%,.2f", total);
-         System.out.print("\nAverage Pay for all employees\t: ");
-         System.out.printf("$%,.2f", avg);
+         Streem.print("\nGross Pay for all employees\t: ");
+         Streem.printf("$%,.2f", total);
+         Streem.print("\nAverage Pay for all employees\t: ");
+         Streem.printf("$%,.2f", avg);
+         Streem.close();
+   }
+   
+   public static char Ending(char var, Scanner Input)
+   {
+      System.out.println("Thank you for using the program!");
+      System.out.println("Do you want to repeat? y/n");
+      var = Character.toLowerCase(Input.next().charAt(0));
+      if (var == 'n') {
+         System.out.println("Thank you! See you next time!");
+      }
+      return var;
    }
 }

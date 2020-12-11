@@ -1,0 +1,8 @@
+                                        Data Housing Corp. Payroll
+=======================================================================================================
+First Name   MI  Last Name   Rate/Hour  Hours    Gross      State Tax  Fed Tax    Union Fees   Net       
+gdgdsdg      D   deee         $44.00     66      $3,476.00  $208.56    $417.12    $34.76       $2,815.56  
+fdfdf        G   dafdf        $22.00     55      $1,375.00  $82.50     $165.00    $13.75       $1,113.75  
+
+Gross Pay for all employees	: $4,851.00
+Average Pay for all employees	: $2,425.50

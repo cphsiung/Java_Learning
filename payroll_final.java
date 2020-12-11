@@ -12,14 +12,13 @@ public class payroll_final
 {
    public static void main(String[] args) throws IOException
    {
-      
          // DECLARATION
          double stateTaxRate = 0.06, fedTaxRate = 0.12, unionFeeRate = 0.01, overtimeRate = 0.5; // constants for tax & fee rates
          double total = 0, avg = 0; // store calculated gross pay and average pay for all employees
-         final int size = 2; // size for arrays
+         final int size = 10; // size for arrays
          char repeat = 'n';
       do {
-         total = 0;
+         total = 0; // reset total& average back to zero when program restarts
          avg = 0;
          String [] firstName = new String [size];
          String [] lastName = new String [size];
@@ -35,6 +34,7 @@ public class payroll_final
          
          Scanner Input = new Scanner(System.in);
          
+         // INPUT & PROCESS         
          dataInput(firstName, middleInit, lastName, rates, hours, size, Input);
          Overtime(rates, hours, overtime, size, overtimeRate);
          GrossPay(grossPay, hours, rates, overtime, size);
@@ -44,12 +44,13 @@ public class payroll_final
          Net(netPay, grossPay, stateTax, fedTax, unionFee, size);
          total = Summary(total, grossPay, size);
          avg = Average(avg, total, size);
+         
+         // OUTPUT
          Output(firstName, middleInit, lastName, rates, hours, grossPay, stateTax, fedTax, unionFee, netPay, size, total, avg);
          repeat = Ending(repeat, Input);
       } while (repeat == 'y');
    }
 
-   // INPUT
    public static void dataInput(String first[], char middle[], String last[], double rates[], double hours[], final int size, Scanner Input)
    {
       for (int i = 0; i < size; i++) {
@@ -68,10 +69,10 @@ public class payroll_final
       }
    }
      
-   public static double rateValidation(double var, Scanner KB) // validate rates between 15 - 50
+   public static double rateValidation(double var, Scanner KB) // validate rates > 0
    { 
-      while(var < 15 || var > 50) {
-         System.out.println("Rates must be between 15 and 50. Please re-enter:");
+      while(var < 0) {
+         System.out.println("Rates must be greater than 0. Please re-enter:");
          var = KB.nextDouble();
       }
       return var;
@@ -154,7 +155,7 @@ public class payroll_final
       return avg;
    }
 
-
+   // Output method
    public static void Output(String firstName[], char middleInit[], String lastName[], double rates[], double hours[], double grossPay[], double stateTax[], double fedTax[], double unionFee[], double netPay[], final int size, double total, double avg) throws IOException
    {
          PrintWriter Streem = new PrintWriter("Payroll.txt");

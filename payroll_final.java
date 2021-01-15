@@ -6,31 +6,14 @@
    Write a Java program to create a payroll report based on the assumptions and requirements. */
 
 import java.util.Scanner;
-import java.io.*;
 
-public class payroll_final
+public class testQ1
 {
-   public static void main(String[] args) throws IOException
+   public static void main(String[] args)
    {
          // DECLARATION
-         double stateTaxRate = 0.06, fedTaxRate = 0.12, unionFeeRate = 0.01, overtimeRate = 0.5; // constants for tax & fee rates
-         double total = 0, avg = 0; // store calculated gross pay and average pay for all employees
          final int size = 10; // size for arrays
-         char repeat = 'n';
-      do {
-         total = 0; // reset total& average back to zero when program restarts
-         avg = 0;
-         String [] firstName = new String [size];
-         String [] lastName = new String [size];
-         char [] middleInit = new char [size];
-         double [] rates = new double [size];
-         double [] hours = new double [size];
-         double [] stateTax = new double [size];
-         double [] fedTax = new double [size];
-         double [] unionFee = new double [size];
-         double [] netPay = new double [size];
-         double [] grossPay = new double [size]; 
-         double [] overtime = new double [size];
+         int [] Arr = new int [size];
          
          Scanner Input = new Scanner(System.in);
          
